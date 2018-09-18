@@ -3,6 +3,7 @@ import TodoItem from './TodoItem';
 import Footer from './Footer';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import style from './MainSection.css';
+import axios from 'axios';
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -66,6 +67,18 @@ export default class MainSection extends Component {
   }
 
   render() {
+    
+    axios({
+      method: 'get',
+      url: 'https://long-prod.sumologic.net/json/v2/searchquery/0832B65DEE3B9DC2/status',
+      auth: {
+        username: 'sumQrgDt6FGyth',
+        password: 'PX2lk0cM9JlgvXED6UPvR21X9gwzsfHAgnQNLbEQX4VFWmaXcOS8kdkARy5hyZkj'
+      }
+    })
+      .then((response) => console.log(response));
+
+
     const { todos, actions } = this.props;
     const { filter } = this.state;
 
