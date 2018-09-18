@@ -1,9 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import TodoItem from './TodoItem';
 import Footer from './Footer';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import style from './MainSection.css';
 import axios from 'axios';
+import Tabs from './Tabs';
+import Button from '@material-ui/core/Button';
+
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -66,6 +71,19 @@ export default class MainSection extends Component {
     }
   }
 
+  creationCallback = () => {
+    console.log('creationCallback');
+  }
+
+  showNotification  = () =>  {
+    chrome.notifications.create(id, {
+      type: "basic",
+      title: "Primary Title",
+      message: "Primary message to display",
+      iconUrl: "url_to_small_icon"
+    }, creationCallback);
+  }
+
   render() {
     
     axios({
@@ -88,15 +106,23 @@ export default class MainSection extends Component {
       0
     );
 
+    // {this.renderToggleAll(completedCount)}
+    //     <ul className={style.todoList}>
+    //       {filteredTodos.map(todo =>
+    //         <TodoItem key={todo.id} todo={todo} {...actions} />
+    //       )}
+    //     </ul>
+    //     {this.renderFooter(completedCount)}
+    
+
     return (
       <section className={style.main}>
-        {this.renderToggleAll(completedCount)}
-        <ul className={style.todoList}>
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
-          )}
-        </ul>
-        {this.renderFooter(completedCount)}
+      <Button variant="outlined"  onClick={this.showNotification} >
+        Default
+      </Button>
+       <Tabs/>
+       
+        
       </section>
     );
   }
