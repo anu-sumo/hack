@@ -8,6 +8,7 @@ import style from './MainSection.css';
 import axios from 'axios';
 import Tabs from './Tabs';
 import Button from '@material-ui/core/Button';
+import * as api from '../api';
 
 
 const TODO_FILTERS = {
@@ -85,18 +86,7 @@ export default class MainSection extends Component {
   }
 
   render() {
-    
-    axios({
-      method: 'get',
-      url: 'https://long-prod.sumologic.net/json/v2/searchquery/0832B65DEE3B9DC2/status',
-      auth: {
-        username: 'sumQrgDt6FGyth',
-        password: 'PX2lk0cM9JlgvXED6UPvR21X9gwzsfHAgnQNLbEQX4VFWmaXcOS8kdkARy5hyZkj'
-      }
-    })
-      .then((response) => console.log(response));
-
-
+    api.getSearchStatus('session');
     const { todos, actions } = this.props;
     const { filter } = this.state;
 
