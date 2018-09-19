@@ -6,6 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import BookmarksTab from './BookmarksTab';
+import NotificationTab from './NotificationTab';
+
+
 
 function TabContainer(props) {
   return (
@@ -48,8 +51,8 @@ class TabsWrappedLabel extends React.Component {
             <Tab value="three" label="Bookmarks" />
           </Tabs>
         </AppBar>
-        {value === 'one' && <TabContainer>Item One</TabContainer>}
-        {value === 'two' && <TabContainer>Item Two</TabContainer>}
+        {value === 'one' && <TabContainer><NotificationTab/></TabContainer>}
+        {value === 'two' && <TabContainer>Item One</TabContainer>}
         {value === 'three' && <TabContainer><BookmarksTab/></TabContainer>}
       </div>
     );

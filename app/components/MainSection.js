@@ -114,16 +114,13 @@ export default class MainSection extends Component {
     //     </ul>
     //     {this.renderFooter(completedCount)}
     
-
-    return (
-      <section className={style.main}>
-      <Button variant="outlined"  onClick={this.showNotification} >
-        Default
-      </Button>
-       <Tabs/>
+    // <section className={style.main}>
+       
        
         
-      </section>
+    // </section>
+    return (
+      <Tabs/>
     );
   }
 }

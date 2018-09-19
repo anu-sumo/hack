@@ -1,0 +1,16 @@
+.addNew {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-end;
+    column-gap: 20px;
+}
+
+.addButton {
+    button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+
+    }
+    
+}
