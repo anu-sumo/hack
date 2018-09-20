@@ -5,12 +5,12 @@
     column-gap: 20px;
 }
 
-.addButton {
-    button {
+.addButton > button {
+    
         position: absolute;
         bottom: 20px;
         right: 20px;
 
-    }
+    
     
 }

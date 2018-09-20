@@ -72,21 +72,8 @@ export default class MainSection extends Component {
     }
   }
 
-  creationCallback = () => {
-    console.log('creationCallback');
-  }
-
-  showNotification  = () =>  {
-    chrome.notifications.create(id, {
-      type: "basic",
-      title: "Primary Title",
-      message: "Primary message to display",
-      iconUrl: "url_to_small_icon"
-    }, creationCallback);
-  }
 
   render() {
-    api.getSearchStatus('session');
     const { todos, actions } = this.props;
     const { filter } = this.state;
 
