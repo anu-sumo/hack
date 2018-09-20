@@ -86,7 +86,6 @@ export default class MainSection extends Component {
   }
 
   render() {
-    api.getSearchStatus('session');
     const { todos, actions } = this.props;
     const { filter } = this.state;
 

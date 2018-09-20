@@ -39,14 +39,15 @@ class NotificationTab extends Component {
                         value={'abc'}
                         onChange={this.handleChange}
                         input={<Input name="age" id="age-helper" />}
+                        defaultValue='long-prod'
                     >
                         <MenuItem value={"nite-www"}>nite</MenuItem>
-                        <MenuItem value={"stag"}>stag-www</MenuItem>
-                        <MenuItem value={"US1"}>service</MenuItem>
-                        <MenuItem value={"long-prod "}> long-prod </MenuItem>
+                        <MenuItem value={"stag-www"}>stag</MenuItem>
+                        <MenuItem value={"long-prod"}> long-prod </MenuItem>
                         <MenuItem value={"long-us2 "}> long-us2 </MenuItem>
                         <MenuItem value={"long-syd "}> long-syd </MenuItem>
                         <MenuItem value={"long-dub "}> long-dub </MenuItem>
+                        <MenuItem value={"US1"}>service</MenuItem>
                     </Select>
                     <TextField
                         id="sessionId"
