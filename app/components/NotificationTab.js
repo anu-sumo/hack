@@ -28,6 +28,9 @@ import Avatar from '@material-ui/core';
 import SubscriptionListItem from './SubscriptionListItem'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import jenkins from '../../chrome/assets/img/jenkins.png';
+import sumoImage from '../../chrome/assets/img/sumo.png';
+
 
 
 
@@ -37,9 +40,36 @@ class NotificationTab extends Component {
         super(props)
         this.state = {
             formOpen: false,
-            subscriptions: [],
+            subscriptions: [
+                { type: 'search',
+                
+    
+    sessionId: 'hfkadsuyf89i8',
+    deployment: 'long',
+status:'failed'},
+{ type: 'build',
+jobUrl: 'jenkins.com',
+
+status:'running'},
+{ type: 'build',
+jobUrl: 'jenkins.com',
+
+status:'failed'},
+{ type: 'search',
+
+sessionId: 'fadsfadsf88989',
+deployment: 'nite',
+status:'done'},
+{ type: 'search',
+sessionId: 'fadsfadsf889899090',
+deployment: 'long',
+status:'running'},
+                
+            ],
 
         }
+
+        localStorage.setItem('subscriptions', JSON.stringify(this.state.subscriptions));
     }
 
     handleSubscribe = (newSub) => {
@@ -80,30 +110,65 @@ class NotificationTab extends Component {
     // deployment: '',
     // <Avatar/>
 
+
+    renderIcon(status) {
+        if (status==="running") {
+            return (
+                <ListItemIcon>
+                    <CircularProgress style={{ color: 'gray' }} size={30} />
+                </ListItemIcon>
+            )
+        } else if (status==="done") {
+            return (
+                <ListItemIcon>
+                <SvgIcon nativeColor="#458B00">
+                    <path d="M5.48 10.089l1.583-1.464c1.854.896 3.028 1.578 5.11 3.063 3.916-4.442 6.503-6.696 11.311-9.688l.516 1.186c-3.965 3.46-6.87 7.314-11.051 14.814-2.579-3.038-4.301-4.974-7.469-7.911zm14.407.557c.067.443.113.893.113 1.354 0 4.962-4.038 9-9 9s-9-4.038-9-9 4.038-9 9-9c1.971 0 3.79.644 5.274 1.723.521-.446 1.052-.881 1.6-1.303-1.884-1.511-4.271-2.42-6.874-2.42-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11c0-1.179-.19-2.313-.534-3.378-.528.633-1.052 1.305-1.579 2.024z" />
+                </SvgIcon>
+                </ListItemIcon>
+            )
+        } 
+           return (
+            <ListItemIcon>
+            <SvgIcon nativeColor="#FF0000">
+            <path d="M16.971 0h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-4.971 19.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm.5-4.25h-1l-1-10h3l-1 10z"/>
+                </SvgIcon>
+                </ListItemIcon>
+           )
+        
+    }
+
     renderSubscriptions() {
         return (
             <List component="ul">
-                {this.state.subscriptions.map(({ type, jobUrl, sessionId, deployment }) => (
+            
+
+                {this.state.subscriptions.map(({ type, jobUrl, sessionId, deployment, status }) => (
 
 
                     <ListItem >
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
+                    {type==='search' ? <img src={sumoImage}  height="42" width="42"/>
+                    :<img src={jenkins} alt="Smiley face" height="42" width="42"/>
+                
+                }
+                    
+                    
+                    
+                    
                         <ListItemText
                             primary={type === "search" ? sessionId : jobUrl}
                             secondary={type === "search" ? deployment : null} />
-                        <ListItemIcon>
 
-                            <CircularProgress style={{ color: 'gray' }} size={30} />
-                        </ListItemIcon>
+                        {this.renderIcon(status)}
 
-                        <SvgIcon nativeColor="#458B00">
-                        <path d="M5.48 10.089l1.583-1.464c1.854.896 3.028 1.578 5.11 3.063 3.916-4.442 6.503-6.696 11.311-9.688l.516 1.186c-3.965 3.46-6.87 7.314-11.051 14.814-2.579-3.038-4.301-4.974-7.469-7.911zm14.407.557c.067.443.113.893.113 1.354 0 4.962-4.038 9-9 9s-9-4.038-9-9 4.038-9 9-9c1.971 0 3.79.644 5.274 1.723.521-.446 1.052-.881 1.6-1.303-1.884-1.511-4.271-2.42-6.874-2.42-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11c0-1.179-.19-2.313-.534-3.378-.528.633-1.052 1.305-1.579 2.024z"/>
-    </SvgIcon>
-                        <Icon color="primary" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"></svg>
-                        </Icon>
+
+
+
+
+
+
+
+
+
                     </ListItem>
 
 

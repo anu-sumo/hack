@@ -96,4 +96,4 @@ export function getJenkinsJobStatus(jobUrl) {
         }
 
 // getSearchStatus("DC657E34E3C4D658")
-getJenkinsJobStatus("https://jenkins.kumoroku.com/job/Master-PR-Linearbuild-Flow/57699/")
+//getJenkinsJobStatus("https://jenkins.kumoroku.com/job/Master-PR-Linearbuild-Flow/57699/")

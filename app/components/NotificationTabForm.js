@@ -77,24 +77,29 @@ export default class NotificationTabForm extends React.Component {
     }
 
     renderSearchForm() {
+        const classes = {}
         return (
-            <div className={styles.searchForm}>
+            <div >
+            
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="age-helper">Deployment</InputLabel>
                 <Select
-                    value={this.state.deployment}
-                    autoFocus
-                    fullWidth
-                    label="deployment"
-                    onChange={(e) => this.setState({ deployment: e.target.value })}
-                    input={<Input name="deployment" id="deployment" />}
-                >
-                    <MenuItem value={"nite-www"}>nite</MenuItem>
-                    <MenuItem value={"stag"}>stag-www</MenuItem>
-                    <MenuItem value={"US1"}>service</MenuItem>
-                    <MenuItem value={"long-prod "}> long-prod </MenuItem>
-                    <MenuItem value={"long-us2 "}> long-us2 </MenuItem>
-                    <MenuItem value={"long-syd "}> long-syd </MenuItem>
-                    <MenuItem value={"long-dub "}> long-dub </MenuItem>
-                </Select>
+                value={this.state.deployment}
+                fullWidth
+                onChange={(e) => this.setState({ deployment: e.target.value })}
+                input={<Input name="deployment" id="deployment" />}
+            >
+                <MenuItem value={"nite-www"}>nite</MenuItem>
+                <MenuItem value={"stag"}>stag-www</MenuItem>
+                <MenuItem value={"US1"}>service</MenuItem>
+                <MenuItem value={"long-prod "}> long-prod </MenuItem>
+                <MenuItem value={"long-us2 "}> long-us2 </MenuItem>
+                <MenuItem value={"long-syd "}> long-syd </MenuItem>
+                <MenuItem value={"long-dub "}> long-dub </MenuItem>
+            </Select>
+                <FormHelperText>PLease select the deployment this search is running on</FormHelperText>
+              </FormControl>
+               
                 <TextField
                     id="sessionId"
                     label="Session Id"

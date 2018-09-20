@@ -64,7 +64,11 @@ const baseDevConfig = () => ({
           }
         }
       ]
-    }]
+    },
+    { test: /\.png$/, loader: "url-loader?mimetype=image/png" }
+
+  
+  ]
   }
 });
 
