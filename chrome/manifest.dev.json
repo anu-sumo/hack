@@ -18,6 +18,6 @@
   "background": {
     "page": "background.html"
   },
-  "permissions": [ "contextMenus", "management", "tabs", "storage", "https://github.com/*", "https://long-api.sumologic.net" ],
-  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 https://localhost:3000 https://long-api.sumologic.net; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
+  "permissions": [ "contextMenus", "management", "tabs", "storage", "https://github.com/*", "https://long-api.sumologic.net/api/v1/search/jobs", "https://api.sumologic.com/api/v1/search/jobs" ],
+  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 https://localhost:3000 https://long-api.sumologic.net https://api.sumologic.com; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
 }
