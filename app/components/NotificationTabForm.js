@@ -139,7 +139,7 @@ export default class NotificationTabForm extends React.Component {
                 <DialogTitle id="form-dialog-title">Add Alert</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Please add alert to be Notified.
+                        Please add tasks to be notified for.
             </DialogContentText>
                     {this.renderRadio()}
                     {

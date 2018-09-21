@@ -46,7 +46,7 @@ class TabsWrappedLabel extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
-            <Tab value="one" label="Notifications" />
+            <Tab value="one" label="NotifyMe!" />
             <Tab value="two" label="Utilities" />
             <Tab value="three" label="Bookmarks" />
           </Tabs>
