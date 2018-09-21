@@ -77,16 +77,7 @@ class NotificationTab extends Component {
     }
 
     syncWithLocalStorage = () => {
-        const subs = this.getSubs();
-        if (!subs) {
-            return;
-        }
-        const synced = subs.map((sub) => ({ ...sub, status: localStorage.getItem(sub.id) }));
-        console.log('synced', synced);
-
-        localStorage.setItem('subscriptions', JSON.stringify(synced));
-
-        this.setState({ subscriptions: synced });
+        this.setState({ subscriptions: this.getSubs()});
     }
 
 

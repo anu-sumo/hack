@@ -39,11 +39,28 @@ const getSubs = () =>  {
   return [];
 }
 
+const syncWithLocalStorage = () => {
+  const subs = getSubs();
+  if (!subs) {
+      return;
+  }
+  const synced = subs.map((sub) => ({ ...sub, status: localStorage.getItem(sub.id) }));
+  
+
+  localStorage.setItem('subscriptions', JSON.stringify(synced));
+
+  return synced;
+
+  
+}
+
+
 
 const showNotif = () =>  {
   const doneNotifs = getDoneNotifs();
-  getSubs().forEach((sub) => {
-    const {status} = sub;
+  const subs = syncWithLocalStorage();
+  subs.forEach((sub) => {
+    const status = sub.status;
     if (status === 'done' || status === 'failed') {
       let notif = {};
       if (sub.type === 'search') {
@@ -70,7 +87,9 @@ const showNotif = () =>  {
           notif,
           function (notificationId) {
         })
+
         doneNotifs[sub.id] = true;
+        
       } 
     }
   });
