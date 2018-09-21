@@ -2,7 +2,7 @@ import axios from 'axios';
 
 setInterval(() => {
   let subs = JSON.parse(localStorage.getItem('subscriptions')) || [];
-  subs = subs.filter((sub) => sub.status !== 'done' || sub.status !== 'failed' );
+  subs = subs.filter((sub) => !sub.status || sub.status === '' );
   wakeup(subs);
 
 }, 15000);
