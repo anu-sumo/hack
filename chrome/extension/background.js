@@ -1,9 +1,9 @@
 const bluebird = require('bluebird');
 import * as api from '../../app/api';
 
-
-
 global.Promise = bluebird;
+//TODO: use set interval
+//setInterval(function(){ i + 1 ; console.log(i); }, 3000);
 
 function promisifier(method) {
   // return a function
@@ -28,8 +28,14 @@ function promisifyAll(obj, list) {
 
 const alarmListener = () => {
   let subs = JSON.parse(localStorage.getItem('subscriptions'));
-  console.log('subs', subs);
-  subs = subs.map((sub) => ({...sub, status:localStorage.getItem(sub.id)}))
+  
+  subs = subs.map((sub) => {
+    if(sub.status) {
+      return sub
+    } else {
+      return {...sub, status:localStorage.getItem(sub.id)}
+    }
+  });
   
   api.wakeup(subs.filter((sub) =>{
     console.log('inFilter');
@@ -37,32 +43,37 @@ const alarmListener = () => {
     return !sub.status
   }));
   subs.forEach((sub) => {
-    if (sub.status === 'done' || sub.status === 'failed') {
+    const status = localStorage.getItem(sub.id)
+    if (status === 'done' || status === 'failed') {
       let notif = {};
       if (sub.type === 'search') {
         notif = {
           iconUrl: "img/sumo.png",
           type: 'basic',
           title: 'Search',
-          message: 'The search Finished'
+          message: sub.sessionId + 'completed successfully.',
+          requireInteraction: true
         }
       } else {
         notif = {
-
-          iconUrl: "img/jenkins.png",
+          iconUrl: "img/sumo.png",
           type: 'basic',
-          title: 'Build',
-          message: 'The Build Finished'
+          title: 'Build Finished',
+          requireInteraction: true,
+          message: sub.jobUrl + ' finished'
         }
       }
+      console.log(sub.id);
       chrome.notifications.create(
-        'reminder' + sub.id,
+        sub.id,
         notif,
         function (notificationId) {
-          console.log('notified');
+          localStorage.removeItem(sub.id);
+          console.log(notificationId);
         })
     }
   });
+  localStorage.setItem('subscriptions', JSON.stringify(subs));
 }
 
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function wakeup(objects) {
-    console.log('wakeup', objects);
+  console.log('wakeup', objects);
   for(let i = 0; i<objects.length; i++) {
     var current = objects[i]
     switch(current.type) {
@@ -101,8 +101,14 @@ function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, from
 }
 
 function getSearchParams(deployment) {
+  deployment = deployment.trim()
+  console.error(deployment)
+  // case 'long-us2':
+  //   case 'long-dub':
+  //   case 'long-syd':
   switch(deployment) {
-    case 'long':
+    
+    case 'long-prod':
       return {
         location: 'https://api.sumologic.com/api/v1/search/jobs',
         userNameStr: 'suzMlO43koPHDB',
@@ -123,8 +129,6 @@ function getSearchParams(deployment) {
 
 }
 
-export function test() {
-    console.log('test');
-}
+
 
 

@@ -30,7 +30,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import jenkins from '../../chrome/assets/img/jenkins.png';
 import sumoImage from '../../chrome/assets/img/sumo.png';
-import _ from 'lodash';
 import shortid from 'shortid'
 
 
@@ -62,11 +61,11 @@ class NotificationTab extends Component {
             localStorage.setItem('subscriptions', JSON.stringify([]));
         }
         this.intervalId = setInterval(() => {
-            this.setState({
-                subscriptions: this.state.subscriptions.map((sub) =>({...sub, status: localStorage.getItem(sub.id)}))
-            })
-        }, 10000)
+            this.setState(this.setState(JSON.parse(localStorage.getItem('subscriptions'))))
+        }, 3000)
     }
+
+    
 
     componentWillUnmount() {
         clearInterval(this.intervalId);
