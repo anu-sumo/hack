@@ -32,13 +32,6 @@ import jenkins from '../../chrome/assets/img/jenkins.png';
 import sumoImage from '../../chrome/assets/img/sumo.png';
 import shortid from 'shortid'
 
-
-
-
-
-
-
-
 class NotificationTab extends Component {
     constructor(props) {
         super(props)
