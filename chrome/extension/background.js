@@ -22,28 +22,28 @@ function promisifyAll(obj, list) {
 
 
 
+const getDoneNotifs = () => {
+  const notifs = localStorage.getItem('doneNotification');
+  console.log(notifs);
+  if(notifs) {
+    return JSON.parse(notifs);
+  }
+  return {};
+}
+
+const getSubs = () =>  {
+  const subs = localStorage.getItem('subscriptions');
+  if(subs) {
+    return JSON.parse(subs);
+  }
+  return [];
+}
 
 
-
-
-const alarmListener = () => {
-  let subs = JSON.parse(localStorage.getItem('subscriptions'));
-  
-  subs = subs.map((sub) => {
-    if(sub.status) {
-      return sub
-    } else {
-      return {...sub, status:localStorage.getItem(sub.id)}
-    }
-  });
-  
-  api.wakeup(subs.filter((sub) =>{
-    console.log('inFilter');
-    console.log(sub)
-    return !sub.status
-  }));
-  subs.forEach((sub) => {
-    const status = localStorage.getItem(sub.id)
+const showNotif = () =>  {
+  const doneNotifs = getDoneNotifs();
+  getSubs().forEach((sub) => {
+    const {status} = sub;
     if (status === 'done' || status === 'failed') {
       let notif = {};
       if (sub.type === 'search') {
@@ -63,23 +63,50 @@ const alarmListener = () => {
           message: sub.jobUrl + ' finished'
         }
       }
-      console.log(sub.id);
-      chrome.notifications.create(
-        sub.id,
-        notif,
-        function (notificationId) {
-          localStorage.removeItem(sub.id);
-          console.log(notificationId);
+
+      if(!doneNotifs[sub.id]) {
+        chrome.notifications.create(
+          sub.id,
+          notif,
+          function (notificationId) {
         })
+        doneNotifs[sub.id] = true;
+      } 
     }
   });
-  localStorage.setItem('subscriptions', JSON.stringify(subs));
+
+  localStorage.setItem('doneNotification', JSON.stringify(doneNotifs));
 }
 
 
-chrome.alarms.create('checkStatus', { delayInMinutes: 0.1, periodInMinutes: 0.1 });
 
-chrome.alarms.onAlarm.addListener(alarmListener)
+setInterval(showNotif, 18000);
+
+
+// const alarmListener = () => {
+//   let subs = JSON.parse(localStorage.getItem('subscriptions'));
+  
+//   subs = subs.map((sub) => {
+//     if(sub.status) {
+//       return sub
+//     } else {
+//       return {...sub, status:localStorage.getItem(sub.id)}
+//     }
+//   });
+  
+//   api.wakeup(subs.filter((sub) =>{
+//     console.log('inFilter');
+//     console.log(sub)
+//     return !sub.status
+//   }));
+  
+//   localStorage.setItem('subscriptions', JSON.stringify(subs));
+// }
+
+
+//chrome.alarms.create('checkStatus', { delayInMinutes: 0.1, periodInMinutes: 0.1 });
+
+//chrome.alarms.onAlarm.addListener(alarmListener)
 
 // let chrome extension api support Promise
 promisifyAll(chrome, [
