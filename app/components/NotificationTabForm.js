@@ -141,6 +141,7 @@ export default class NotificationTabForm extends React.Component {
                     <DialogContentText>
                         Please add tasks to be notified for.
             </DialogContentText>
+            <br/>
                     {this.renderRadio()}
                     {
                         this.state.type === "search" ?
