@@ -34,7 +34,7 @@ function SimpleCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="headline" component="h2">
-          Hex/Dec convertor
+          Hex/Dec converter
         </Typography>
 
         <TextField
