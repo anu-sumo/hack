@@ -154,7 +154,7 @@ class NotificationTab extends Component {
 
                         }
                         <ListItemText
-                            primary={type === "search" ? sessionId : jobUrl}
+                            primary={type === "search" ? sessionId : jobUrl.split('job/')[1]}
                             secondary={type === "search" ? deployment : null} />
 
                         {this.renderIcon(status)}
