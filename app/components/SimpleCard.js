@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
   card: {
@@ -32,28 +33,32 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary">
-          Word of the Day
-        </Typography>
         <Typography variant="headline" component="h2">
-          be
-          {bull}
-          nev
-          {bull}o{bull}
-          lent
+          Hex/Dec convertor
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+
+        <TextField
+          id="hex"
+          label="Hex"
+          fullWidth
+          margin="dense"
+          value={props.hex}
+          onChange={(e) => props.onChange({ hex: e.target.value, decimal: parseInt(e.target.value, 16) })}
+        />
+        <TextField
+          id="Hex"
+          label="Decimal"
+          fullWidth
+          margin="dense"
+          value={props.decimal}
+          onChange={(e) => {
+            
+            console.log((e.target.value).toString(16));
+            props.onChange({decimal: e.target.value, hex: e.target.value.toString(16)})}
+          
+          }
+        />
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }

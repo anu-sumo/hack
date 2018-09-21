@@ -5,7 +5,7 @@ setInterval(() => {
   subs = subs.filter((sub) => !sub.status || sub.status === '' );
   wakeup(subs);
 
-}, 15000);
+}, 15000);  
 
 export function wakeup(objects) {
   console.log('wakeup', objects);
