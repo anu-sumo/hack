@@ -5,7 +5,7 @@ setInterval(() => {
   subs = subs.filter((sub) => !sub.status || sub.status === '' );
   wakeup(subs);
 
-}, 15000);
+}, 5000);
 
 export function wakeup(objects) {
   console.log('wakeup', objects);
@@ -40,18 +40,23 @@ function getSearchStatus(itemId, sessionId, deployment) {
 
 function getJenkinsJobStatus(itemId, jobUrl) {
     var jobName = 'getJenkinsJobStatus'
-    var elm = jobUrl.split('/')
-    var sourceName = elm[elm.length-3] + "#" + elm[elm.length - 2];
-    var queryStr = `!gurr _sourceCategory=jenkinsBuildLogs _sourceName=${sourceName}  Finished (SUCCESS OR FAILURE)`
-    var fromTime = Date.now() - 86400000
-    var toTime = Date.now()
-    var searchParams = getSearchParams('jenkins')
-    var location = searchParams.location
-    var userNameStr = searchParams.userNameStr
-    var passwordStr = searchParams.passwordStr
-    var timeOut = 5000
+    var splits = jobUrl.split('job/')
+    if (splits.length == 2) {
+        var elm = splits[1].split('/', 2)
+        if (elm.length == 2) {
+            var sourceName = elm[0] + "#" + elm[1];
+            var queryStr = `!gurr _sourceCategory=jenkinsBuildLogs _sourceName=${sourceName}  Finished (SUCCESS OR FAILURE)`
+            var fromTime = Date.now() - 86400000
+            var toTime = Date.now()
+            var searchParams = getSearchParams('jenkins')
+            var location = searchParams.location
+            var userNameStr = searchParams.userNameStr
+            var passwordStr = searchParams.passwordStr
+            var timeOut = 5000
 
-    runAndWaitForResults(location, userNameStr, passwordStr, queryStr, fromTime, toTime, timeOut, jobName, itemId)
+            runAndWaitForResults(location, userNameStr, passwordStr, queryStr, fromTime, toTime, timeOut, jobName, itemId)
+        }
+    }
 }
 
 

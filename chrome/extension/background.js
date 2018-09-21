@@ -51,7 +51,7 @@ const showNotif = () =>  {
           iconUrl: "img/sumo.png",
           type: 'basic',
           title: 'Search',
-          message: sub.sessionId + 'completed successfully.',
+          message: sub.sessionId + ' completed successfully.',
           requireInteraction: true
         }
       } else {
@@ -80,7 +80,7 @@ const showNotif = () =>  {
 
 
 
-setInterval(showNotif, 18000);
+setInterval(showNotif, 6000);
 
 
 // const alarmListener = () => {
