@@ -43,18 +43,20 @@ function SimpleCard(props) {
           fullWidth
           margin="dense"
           value={props.hex}
-          onChange={(e) => props.onChange({ hex: e.target.value, decimal: parseInt(e.target.value, 16) })}
+          onChange={(e) => props.onChange({ hex: e.target.value, decimal: parseInt(e.target.value, 10) })}
         />
         <TextField
-          id="Hex"
+          id="decimal"
           label="Decimal"
           fullWidth
           margin="dense"
           value={props.decimal}
           onChange={(e) => {
+
+
             
-            console.log((e.target.value).toString(16));
-            props.onChange({decimal: e.target.value, hex: e.target.value.toString(16)})}
+            
+            props.onChange({decimal: e.target.value, hex: Number(e.target.value).toString(16)})}
           
           }
         />
