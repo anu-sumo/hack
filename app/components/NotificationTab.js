@@ -36,36 +36,67 @@ import shortid from 'shortid'
 
 
 
+
+
+
 class NotificationTab extends Component {
     constructor(props) {
         super(props)
         this.state = {
             formOpen: false,
             subscriptions: [],
+            pending: []
 
         }
     }
 
     handleSubscribe = (newSub) => {
-        const newSubs = [{...newSub, id: shortid.generate()}, ...this.state.subscriptions]
+        const subs = this.getSubs() || [];
+        const newSubs = [{ ...newSub, id: shortid.generate() }, ...subs];
         localStorage.setItem('subscriptions', JSON.stringify(newSubs));
         this.setState({ subscriptions: newSubs, formOpen: false })
     }
 
-    componentDidMount() {
-        const subs = localStorage.getItem('subscriptions');
-        console.log('insideNotifTab', subs);
-        if (subs) {
-            this.setState({ subscriptions: JSON.parse(subs) });
-        } else {
-            localStorage.setItem('subscriptions', JSON.stringify([]));
+    getSubs() {
+        const subsJson = localStorage.getItem('subscriptions')
+        if (subsJson) {
+            return JSON.parse(subsJson);
         }
-        this.intervalId = setInterval(() => {
-            this.setState(this.setState(JSON.parse(localStorage.getItem('subscriptions'))))
-        }, 3000)
+
+        return null;
     }
 
-    
+    componentDidMount() {
+        const subs = this.getSubs();
+
+        if (subs) {
+            this.setState({ subscriptions: subs });
+        }
+        this.intervalId = setInterval(this.syncWithLocalStorage, 15000)
+    }
+
+    getFromLocalStorage(key) {
+        const local = localStorage.getItem(key);
+        if (local) {
+            return JSON.parse(local);
+        }
+        return null;
+    }
+
+    syncWithLocalStorage = () => {
+        const subs = this.getSubs();
+        if (!subs) {
+            return;
+        }
+        const synced = subs.map((sub) => ({ ...sub, status: localStorage.getItem(sub.id) }));
+        console.log('synced', synced);
+
+        localStorage.setItem('subscriptions', JSON.stringify(synced));
+
+        this.setState({ subscriptions: synced });
+    }
+
+
 
     componentWillUnmount() {
         clearInterval(this.intervalId);

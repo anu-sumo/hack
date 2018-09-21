@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+setInterval(() => {
+  let subs = JSON.parse(localStorage.getItem('subscriptions')) || [];
+  subs = subs.filter((sub) => sub.status !== 'done' || sub.status !== 'failed' );
+  wakeup(subs);
+
+}, 15000);
+
 export function wakeup(objects) {
   console.log('wakeup', objects);
   for(let i = 0; i<objects.length; i++) {
