@@ -80,7 +80,7 @@ const showNotif = () =>  {
 
 
 
-setInterval(showNotif, 18000);
+//setInterval(showNotif, 18000);
 
 
 // const alarmListener = () => {
@@ -104,9 +104,9 @@ setInterval(showNotif, 18000);
 // }
 
 
-//chrome.alarms.create('checkStatus', { delayInMinutes: 0.1, periodInMinutes: 0.1 });
+chrome.alarms.create('checkStatus', { delayInMinutes: 0.1, periodInMinutes: 0.1 });
 
-//chrome.alarms.onAlarm.addListener(alarmListener)
+chrome.alarms.onAlarm.addListener(showNotif)
 
 // let chrome extension api support Promise
 promisifyAll(chrome, [
