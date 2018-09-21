@@ -63,6 +63,7 @@ function getJenkinsJobStatus(itemId, jobUrl) {
 function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, fromTime, toTime, timeOut, jobName, itemId) {
     console.log("Starting : " + jobName + " : " + itemId);
     var status = "GATHERING RESULTS"
+    var messageCount = 0
     var recurringTask = ""
 
     const data = {
@@ -90,7 +91,7 @@ function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, from
 
 
     function checkStatus() {
-      if (status == "DONE GATHERING RESULTS") {
+      if (status == "DONE GATHERING RESULTS" && messageCount > 0) {
           console.log("Yay it WORKED !!" + jobName)
           localStorage.setItem(itemId, 'done');
           clearInterval(recurringTask);
@@ -107,6 +108,7 @@ function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, from
         }
       }).then((response) => {
         status = response.data.state
+        messageCount = response.data.messageCount
       })
     }
     console.log("Done with : " + jobName)
