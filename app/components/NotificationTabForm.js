@@ -66,7 +66,7 @@ export default class NotificationTabForm extends React.Component {
                         labelPlacement="start"
                     />
                     <FormControlLabel
-                        value="Build"
+                        value="build"
                         control={<Radio color="primary" />}
                         label="build"
                         labelPlacement="start"
