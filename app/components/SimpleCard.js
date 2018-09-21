@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import converter from 'hex2dec';
+
 
 const styles = {
   card: {
@@ -26,6 +28,24 @@ const styles = {
   },
 };
 
+
+function convert(val, type) {
+  if(type === 'hex') {
+    return {
+      hex: val,
+      decimal:  converter.hexToDec(val)
+    }
+  } else  {
+    let hex = converter.decToHex(val,  { prefix: false }) || 0;
+    hex =  "00000000000000000000"+ hex;
+    hex = hex.slice(hex.length - 16).toUpperCase();
+    return {
+      hex, 
+      decimal: val
+    }
+  } 
+}
+
 function SimpleCard(props) {
   const { classes } = props;
   const bull = <span className={classes.bullet}>•</span>;
@@ -43,7 +63,7 @@ function SimpleCard(props) {
           fullWidth
           margin="dense"
           value={props.hex}
-          onChange={(e) => props.onChange({ hex: e.target.value, decimal: parseInt(e.target.value, 16) })}
+          onChange={(e) => props.onChange(convert(e.target.value, "hex"))}
         />
         <TextField
           id="decimal"
@@ -51,14 +71,7 @@ function SimpleCard(props) {
           fullWidth
           margin="dense"
           value={props.decimal}
-          onChange={(e) => {
-
-
-            
-            
-            props.onChange({decimal: e.target.value, hex: Number(e.target.value).toString(16).toUpperCase()})}
-          
-          }
+          onChange={(e) => props.onChange(convert(e.target.value, "decimal"))}
         />
       </CardContent>
     </Card>
