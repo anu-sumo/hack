@@ -13,6 +13,10 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import sumoLogo from '../../chrome/assets/img/sumo.png'
+import jiraLogo from '../../chrome/assets/img/jira.png';
+import githubLogo from '../../chrome/assets/img/github.png';
+import jenkinsLogo from '../../chrome/assets/img/jenkins.png';
 
 const styles = theme => ({
   root: {
@@ -29,19 +33,18 @@ class NestedList extends React.Component {
   constructor(props) {
     super(props);
     this.bookmarks = {
-      "nite": "https://nite-www.sumologic.net/ui/index.html?customerId=0000000131",
-      "stag": "https://stag-www.sumologic.net/ui/index.html?customerId=0000000475",
-      "long-prod": "https://long-prod.sumologic.net/ui/index.html?customerId=0000000005",
-      "long-us2": "https://long-us2.sumologic.net",
-      "long-dub": "https://long-dub.sumologic.net",
-      "long-syd": "https://long-syd.sumologic.net",
-      prod: "https://service.sumologic.com/ui",
-      wiki: "https://wiki.kumoroku.com/confluence/display/",
-      jira: "https://jira.kumoroku.com",
-      jenkins: "https://jenkins.kumoroku.com",
-      codelabs: "https://github.com/Sanyaku/codelabs",
-    }
-
+      "nite": { icon: sumoLogo, url: "https://nite-www.sumologic.net/ui/index.html?customerId=0000000131" },
+      "stag": { icon: sumoLogo, url: "https://stag-www.sumologic.net/ui/index.html?customerId=0000000475" },
+      "long-prod": { icon: sumoLogo, url: "https://long-prod.sumologic.net/ui/index.html?customerId=0000000005" },
+      "long-us2": { icon: sumoLogo, url: "https://long-us2.sumologic.net" },
+      "long-dub": { icon: sumoLogo, url: "https://long-dub.sumologic.net" },
+      "long-syd": { icon: sumoLogo, url: "https://long-syd.sumologic.net" },
+      prod: { icon: sumoLogo, url: "https://service.sumologic.com/ui" },
+      wiki: { icon: jiraLogo, url: "https://wiki.kumoroku.com/confluence/display/" },
+      jira: { icon: jiraLogo, url: "https://jira.kumoroku.com" },
+      jenkins: { icon: jenkinsLogo, url: "https://jenkins.kumoroku.com" },
+      codelabs: { icon: githubLogo, url: "https://github.com/Sanyaku/codelabs" },
+    };
   }
 
   render() {
@@ -52,9 +55,11 @@ class NestedList extends React.Component {
         {Object.keys(this.bookmarks).map((bm) => {
           return (
             <ListItem button onClick={() => {
-              chrome.tabs.create({ url: this.bookmarks[bm] })
+
+              chrome.tabs.create({ url: this.bookmarks[bm].url })
             }}>
-              <ListItemText inset primary={bm} secondary={this.bookmarks[bm]} />
+              <img src={this.bookmarks[bm].icon} alt="" height="42" width="42" />
+              <ListItemText inset primary={bm} secondary={this.bookmarks[bm].url} />
             </ListItem>
           )
         })}
