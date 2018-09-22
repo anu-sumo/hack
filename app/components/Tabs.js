@@ -12,7 +12,7 @@ import UtilitiesTab from './UtilitesTab';
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{height: '500px', overflow: 'auto', padding: 8 * 3 }}>
       {props.children}
     </Typography>
   );
@@ -48,6 +48,7 @@ class TabsWrappedLabel extends React.Component {
           <Tabs fullWidth value={value} onChange={this.handleChange}>
             <Tab value="one" label="NotifyMe!" />
             <Tab value="two" label="Utilities" />
+            <Tab value="three" label="Bookmarks" />
           </Tabs>
         </AppBar>
         {value === 'one' && <TabContainer><NotificationTab/></TabContainer>}

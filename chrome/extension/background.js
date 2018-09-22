@@ -5,6 +5,14 @@ global.Promise = bluebird;
 //TODO: use set interval
 //setInterval(function(){ i + 1 ; console.log(i); }, 3000);
 
+
+// add an appropriate event listener
+addEventListener("openTab", (e) => {
+  console.log("openTabEvent", e);
+  chrome.tabs.create({ url: e.detail.url })
+});
+
+
 function promisifier(method) {
   // return a function
   return function promisified(...args) {
@@ -25,15 +33,15 @@ function promisifyAll(obj, list) {
 const getDoneNotifs = () => {
   const notifs = localStorage.getItem('doneNotification');
   console.log(notifs);
-  if(notifs) {
+  if (notifs) {
     return JSON.parse(notifs);
   }
   return {};
 }
 
-const getSubs = () =>  {
+const getSubs = () => {
   const subs = localStorage.getItem('subscriptions');
-  if(subs) {
+  if (subs) {
     return JSON.parse(subs);
   }
   return [];
@@ -42,21 +50,21 @@ const getSubs = () =>  {
 const syncWithLocalStorage = () => {
   const subs = getSubs();
   if (!subs) {
-      return;
+    return;
   }
   const synced = subs.map((sub) => ({ ...sub, status: localStorage.getItem(sub.id) }));
-  
+
 
   localStorage.setItem('subscriptions', JSON.stringify(synced));
 
   return synced;
 
-  
+
 }
 
 
 
-const showNotif = () =>  {
+const showNotif = () => {
   const doneNotifs = getDoneNotifs();
   const subs = syncWithLocalStorage();
   subs.forEach((sub) => {
@@ -81,16 +89,16 @@ const showNotif = () =>  {
         }
       }
 
-      if(!doneNotifs[sub.id]) {
+      if (!doneNotifs[sub.id]) {
         chrome.notifications.create(
           sub.id,
           notif,
           function (notificationId) {
-        })
+          })
 
         doneNotifs[sub.id] = true;
-        
-      } 
+
+      }
     }
   });
 
@@ -104,7 +112,7 @@ const showNotif = () =>  {
 
 // const alarmListener = () => {
 //   let subs = JSON.parse(localStorage.getItem('subscriptions'));
-  
+
 //   subs = subs.map((sub) => {
 //     if(sub.status) {
 //       return sub
@@ -112,13 +120,13 @@ const showNotif = () =>  {
 //       return {...sub, status:localStorage.getItem(sub.id)}
 //     }
 //   });
-  
+
 //   api.wakeup(subs.filter((sub) =>{
 //     console.log('inFilter');
 //     console.log(sub)
 //     return !sub.status
 //   }));
-  
+
 //   localStorage.setItem('subscriptions', JSON.stringify(subs));
 // }
 

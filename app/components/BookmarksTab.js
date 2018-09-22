@@ -26,50 +26,39 @@ const styles = theme => ({
 });
 
 class NestedList extends React.Component {
-  state = {
-    open: true,
-  };
+  constructor(props) {
+    super(props);
+    this.bookmarks = {
+      "nite": "https://nite-www.sumologic.net/ui/index.html?customerId=0000000131",
+      "stag": "https://stag-www.sumologic.net/ui/index.html?customerId=0000000475",
+      "long-prod": "https://long-prod.sumologic.net/ui/index.html?customerId=0000000005",
+      "long-us2": "https://long-us2.sumologic.net",
+      "long-dub": "https://long-dub.sumologic.net",
+      "long-syd": "https://long-syd.sumologic.net",
+      prod: "https://service.sumologic.com/ui",
+      wiki: "https://wiki.kumoroku.com/confluence/display/",
+      jira: "https://jira.kumoroku.com",
+      jenkins: "https://jenkins.kumoroku.com",
+      codelabs: "https://github.com/Sanyaku/codelabs",
+    }
 
-  handleClick = () => {
-    this.setState(state => ({ open: !state.open }));
-  };
+  }
 
   render() {
     const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
-        <List
-          component="nav"
-          subheader={<ListSubheader component="div">Nested List Items</ListSubheader>}
-        >
-          <ListItem button>
-            
-            <ListItemText inset primary="Sent mail" />
-          </ListItem>
-          <ListItem button>
-            
-            <ListItemText inset primary="Drafts" />
-          </ListItem>
-          <ListItem button onClick={this.handleClick}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Inbox" />
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Starred" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-      </div>
+
+      <List>
+        {Object.keys(this.bookmarks).map((bm) => {
+          return (
+            <ListItem button onClick={() => {
+              chrome.tabs.create({ url: this.bookmarks[bm] })
+            }}>
+              <ListItemText inset primary={bm} secondary={this.bookmarks[bm]} />
+            </ListItem>
+          )
+        })}
+      </List>
     );
   }
 }
