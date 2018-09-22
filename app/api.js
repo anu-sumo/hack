@@ -142,9 +142,8 @@ function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, from
               katta_tier: responseWithRecords.data.records[0].map.katta_tier,
               daily_gb_plan: responseWithRecords.data.records[0].map.daily_gb_plan
             }
-            var newInfo = JSON.parse(localStorage.getItem(`${itemId} data`))
-            console.log("local state for item " + `${itemId} data` + " is: ")
-            console.log(newInfo)
+            console.log(organizationInfo)
+            localStorage.setItem(`${itemId} data`, JSON.stringify(organizationInfo))
           })
         }
       })
@@ -182,5 +181,5 @@ localStorage.setItem(2, 'running');
 localStorage.setItem(3, 'running');
 getSearchStatus(1, "286AE9BCD0E2436B", "long")
 getJenkinsJobStatus(2, "https://jenkins.kumoroku.com/job/Master-PR-Linearbuild-Flow/57753/")
-getOrgInfo(3, '0000000000000005', 'long')
+getOrgInfo(3, '0000000000000005', 'long-prod')
 */
