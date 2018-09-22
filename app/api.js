@@ -60,7 +60,7 @@ function getJenkinsJobStatus(itemId, jobUrl) {
     }
 }
 
-function getOrgInfo(itemId, orgId, deployment) {
+export function getOrgInfo(itemId, orgId, deployment) {
     var jobName = 'getOrgInfo'
     var queryStr = `cat /shared/aditya/config/organizations | where org_id="${orgId}" | fields org_name,katta_tier,account_type,daily_gb_plan`
     var fromTime = Date.now() - 86400000
@@ -143,7 +143,7 @@ function runAndWaitForResults(location, userNameStr, passwordStr, queryStr, from
               daily_gb_plan: responseWithRecords.data.records[0].map.daily_gb_plan
             }
             console.log(organizationInfo)
-            localStorage.setItem(`${itemId} data`, JSON.stringify(organizationInfo))
+            localStorage.setItem(itemId, JSON.stringify(organizationInfo))
           })
         }
       })
