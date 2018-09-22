@@ -84,8 +84,10 @@ function Info(props) {
 let Form = (props) => {
     return (
         <div>
+            <br/>
             <FormControl>
                 <InputLabel htmlFor="age-helper">Deployment</InputLabel>
+                <br/>
                 <Select
                     style={{ minWidth: "420px" }}
                     value={props.deployment}
@@ -132,6 +134,7 @@ function OrgId(props) {
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <Typography variant="headline" component="h2">
                 Org Details
+            <br/>
     </Typography> 
     {props.orgDetails && <Button variant="contained" color="primary" size="small" onClick={props.reset}>New Search</Button>}
         
